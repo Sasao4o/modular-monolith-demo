@@ -9,10 +9,11 @@ import java.util.Optional;
 @Repository
 public class SlotRepository {
     private final List<SlotModel> slots = new ArrayList<>();
-    private int currentId = 1;
+    private Integer currentId = 1;
 
     public  SlotModel insert(SlotModel slot) {
         slot.setId(currentId++);
+
         slots.add(slot);
         return slot;
     }
