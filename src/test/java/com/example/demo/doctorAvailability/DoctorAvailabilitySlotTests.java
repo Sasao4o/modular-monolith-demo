@@ -15,7 +15,7 @@ import com.example.demo.model.SlotModel;
 import com.example.demo.service.SlotService;
 
 @SpringBootTest
-public class DoctorAvailabilitySlotTests {
+class DoctorAvailabilitySlotTests {
     @Autowired
     SlotService slotService;
 
