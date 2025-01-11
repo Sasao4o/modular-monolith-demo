@@ -1,16 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.SlotModel;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-public class slotRepository {
+@Repository
+public class SlotRepository {
     private final List<SlotModel> slots = new ArrayList<>();
     private int currentId = 1;
 
-    public SlotModel create(SlotModel slot) {
+    public  SlotModel insert(SlotModel slot) {
         slot.setId(currentId++);
         slots.add(slot);
         return slot;
@@ -20,7 +21,7 @@ public class slotRepository {
     public List<SlotModel> getAll() {
         return new ArrayList<>(slots);
     }
-    
+
     public Optional<SlotModel> getById(int id) {
         return slots.stream().filter(slot -> slot.getId() == id).findFirst();
     }
