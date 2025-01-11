@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
-
-import lombok.*;
-
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -14,13 +15,13 @@ public class SlotModel {
     private boolean isReserved;
     private double cost;
 
-
     public SlotModel(Integer id, Date time, boolean isReserved, double cost) {
         this.id = id;
         this.time = time;
         this.isReserved = isReserved;
         this.cost = cost;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }

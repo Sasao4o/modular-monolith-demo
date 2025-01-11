@@ -1,15 +1,18 @@
 package com.example.demo.doctorAvailability;
 
-import com.example.demo.model.SlotModel;
-import com.example.demo.service.SlotService;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.demo.model.SlotModel;
+import com.example.demo.service.SlotService;
 
 @SpringBootTest
 public class DoctorAvailabilitySlotTests {
@@ -27,10 +30,11 @@ public class DoctorAvailabilitySlotTests {
     @Test
     void AddSlotTest() {
         SlotModel currentSlot = createDummySlot();
-        SlotModel addedSlot = slotService.addSlot(currentSlot.getId(), currentSlot.getTime(), currentSlot.isReserved(), currentSlot.getCost());
-        assert(addedSlot.getId() != null);
+        SlotModel addedSlot = slotService.addSlot(currentSlot.getId(), currentSlot.getTime(), currentSlot.isReserved(),
+                currentSlot.getCost());
+        assert (addedSlot.getId() != null);
         assertEquals(addedSlot.getTime(), currentSlot.getTime());
-        assertEquals(addedSlot.isReserved() , currentSlot.isReserved());
+        assertEquals(addedSlot.isReserved(), currentSlot.isReserved());
         assertEquals(addedSlot.getCost(), currentSlot.getCost());
     }
 
@@ -65,9 +69,11 @@ public class DoctorAvailabilitySlotTests {
 
         slotService.addSlot(dummySlot.getId(), dummySlot.getTime(), dummySlot.isReserved(), dummySlot.getCost());
         assertThrows(Exception.class, () -> {
-            slotService.addSlot(dummySlot2.getId(), dummySlot2.getTime(), dummySlot2.isReserved(), dummySlot2.getCost());
+            slotService.addSlot(dummySlot2.getId(), dummySlot2.getTime(), dummySlot2.isReserved(),
+                    dummySlot2.getCost());
         });
     }
+
     @Test
     void AddPastSlot() {
         Date currentDate = new Date();
@@ -81,10 +87,12 @@ public class DoctorAvailabilitySlotTests {
             slotService.addSlot(dummySlot.getId(), dummySlot.getTime(), dummySlot.isReserved(), dummySlot.getCost());
         });
     }
+
     @Test
     void bookSlot() {
         SlotModel dummySlot = createDummySlot();
-        SlotModel addedSlot = slotService.addSlot(dummySlot.getId(), dummySlot.getTime(), dummySlot.isReserved(), dummySlot.getCost());
+        SlotModel addedSlot = slotService.addSlot(dummySlot.getId(), dummySlot.getTime(), dummySlot.isReserved(),
+                dummySlot.getCost());
         slotService.bookSlot(addedSlot.getId());
         SlotModel bookedSlot = slotService.getSlotById(addedSlot.getId());
         assertTrue(bookedSlot.isReserved());
@@ -92,6 +100,5 @@ public class DoctorAvailabilitySlotTests {
             slotService.bookSlot(addedSlot.getId());
         });
     }
-
 
 }

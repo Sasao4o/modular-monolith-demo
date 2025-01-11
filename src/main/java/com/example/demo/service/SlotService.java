@@ -1,14 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.SlotModel;
-import com.example.demo.repository.SlotRepository;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.SlotModel;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.example.demo.repository.SlotRepository;
 
 @Service
 public class SlotService {
@@ -38,6 +36,7 @@ public class SlotService {
     public int getSlotTime() {
         return 20;
     }
+
     public boolean bookSlot(Integer id) {
         SlotModel slot = slotRepository.getById(id).orElseThrow(() -> new RuntimeException("Slot not found"));
         if (slot.isReserved()) {
@@ -47,6 +46,7 @@ public class SlotService {
         slotRepository.update(id, slot);
         return true;
     }
+
     public SlotModel getSlotById(Integer id) {
         return slotRepository.getById(id).orElseThrow(() -> new RuntimeException("Slot not found"));
     }
