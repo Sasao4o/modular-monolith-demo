@@ -1,23 +1,24 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.SlotModel;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.model.SlotModel;
+
 @Repository
 public class SlotRepository {
     private final List<SlotModel> slots = new ArrayList<>();
     private Integer currentId = 1;
 
-    public  SlotModel insert(SlotModel slot) {
+    public SlotModel insert(SlotModel slot) {
         slot.setId(currentId++);
 
         slots.add(slot);
         return slot;
     }
-
 
     public List<SlotModel> getAll() {
         return new ArrayList<>(slots);
@@ -26,7 +27,6 @@ public class SlotRepository {
     public Optional<SlotModel> getById(int id) {
         return slots.stream().filter(slot -> slot.getId() == id).findFirst();
     }
-
 
     public Optional<SlotModel> update(int id, SlotModel updatedSlot) {
         Optional<SlotModel> existingSlot = getById(id);
@@ -37,7 +37,6 @@ public class SlotRepository {
         });
         return existingSlot;
     }
-
 
     public boolean delete(int id) {
         return slots.removeIf(slot -> slot.getId() == id);
