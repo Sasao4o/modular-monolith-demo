@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,11 @@ public class SlotService {
     }
 
     public SlotModel addSlot(Integer id, Date currentDate, boolean isReserved, double cost) {
-        if (currentDate.before(new Date())) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        // 1 minute buffer between slots
+        calendar.add(Calendar.MINUTE, 1);
+        if (currentDate.before(calendar.getTime())) {
             throw new RuntimeException("Cannot add slot in the past");
         }
         List<SlotModel> slots = slotRepository.getAll();
@@ -34,7 +39,7 @@ public class SlotService {
     }
 
     public int getSlotTime() {
-        return 20;
+        return 30;
     }
 
     public boolean bookSlot(Integer id) {
@@ -49,6 +54,10 @@ public class SlotService {
 
     public SlotModel getSlotById(Integer id) {
         return slotRepository.getById(id).orElseThrow(() -> new RuntimeException("Slot not found"));
+    }
+
+    public void clearSlots() {
+        slotRepository.clear();
     }
 
 }

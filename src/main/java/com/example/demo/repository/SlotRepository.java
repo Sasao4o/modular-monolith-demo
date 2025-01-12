@@ -41,4 +41,8 @@ public class SlotRepository {
     public boolean delete(int id) {
         return slots.removeIf(slot -> slot.getId() == id);
     }
+
+    public void clear() {
+        slots.clear();
+    }
 }
